@@ -1,12 +1,14 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
+import sqlalchemy as db
 
 Base = declarative_base()
 
 class BronzeRow(Base):
     __tablename__ = "bronze_row"
 
-    resultId = Column(String, primary_key=True)
+    id=db.Column(db.String(200), primary_key=True)
+    resultId = Column(String)
     raceId = Column(String)
     driverId = Column(String)
     constructorId = Column(String)

@@ -1,8 +1,9 @@
-from model import metadata_obj, DataCleaner
+from model import Base, DataCleaner
 import pandas as pd
+import sqlalchemy as db
 
 def load_silver(engine):
-    metadata_obj.create_all(engine)
+    Base.metadata.create_all(engine)
     
     bronze_df = pd.read_sql("SELECT * FROM bronze_row", engine)
     
@@ -16,6 +17,11 @@ def load_silver(engine):
         .standardize_lowercase(["circuitRef", "driverRef", "constructorRef"])
         .standardize_uppercase(["code"])
     )
-    
-    silver_row.df.to_sql("silver_row", engine, if_exists="replace", index=False)
+    with engine.connect() as conn:
+        if db.inspect(engine).has_table("silver_row"):
+            conn.execute(db.text("TRUNCATE TABLE silver_row CASCADE"))
+            conn.commit()
+    silver_row.df=silver_row.df.rename(columns={"Unnamed: 0": "id"})
+    silver_row.df["dateId"] = pd.to_datetime(silver_row.df["date"]).dt.strftime("%Y%m%d").astype("Int64")
+    silver_row.df.to_sql("silver_row", engine, if_exists="append", index=False)
     return silver_row.df

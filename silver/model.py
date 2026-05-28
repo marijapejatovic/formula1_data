@@ -2,6 +2,7 @@ import pandas as pd
 import validators
 from sqlalchemy import Column, Integer, Float, String, Date
 from sqlalchemy.orm import declarative_base
+import sqlalchemy as db
 
 
 Base = declarative_base()
@@ -9,8 +10,9 @@ Base = declarative_base()
 
 class SilverRow(Base):
     __tablename__ = "silver_row"
+    id=db.Column(db.String(200), primary_key=True)
 
-    resultId = Column(Integer, primary_key=True)
+    resultId = Column(Integer)
     raceId = Column(Integer)
     driverId = Column(Integer)
     constructorId = Column(Integer)
@@ -95,10 +97,59 @@ class DataCleaner:
         for col in columns:
             self.df[col] = pd.to_datetime(self.df[col], format="mixed", errors="coerce")
         return self
-
-    def fix_time(self, columns: list) -> "DataCleaner":
+    
+    TIMEZONE_MAP = {
+    'Melbourne': 'Australia/Melbourne',
+    'Kuala Lumpur': 'Asia/Kuala_Lumpur',
+    'Shanghai': 'Asia/Shanghai',
+    'Sakhir': 'Asia/Bahrain',
+    'Montmeló': 'Europe/Madrid',
+    'Monte-Carlo': 'Europe/Monaco',
+    'Montreal': 'America/Toronto',
+    'Valencia': 'Europe/Madrid',
+    'Silverstone': 'Europe/London',
+    'Hockenheim': 'Europe/Berlin',
+    'Budapest': 'Europe/Budapest',
+    'Spa': 'Europe/Brussels',
+    'Monza': 'Europe/Rome',
+    'Marina Bay': 'Asia/Singapore',
+    'Suzuka': 'Asia/Tokyo',
+    'Uttar Pradesh': 'Asia/Kolkata',
+    'Abu Dhabi': 'Asia/Dubai',
+    'Austin': 'America/Chicago',
+    'São Paulo': 'America/Sao_Paulo',
+    'Nürburg': 'Europe/Berlin',
+    'Yeongam County': 'Asia/Seoul',
+    'Spielberg': 'Europe/Vienna',
+    'Sochi': 'Europe/Moscow',
+    'Mexico City': 'America/Mexico_City',
+    'Baku': 'Asia/Baku',
+    'Imola': 'Europe/Rome',
+    'Portimão': 'Europe/Lisbon',
+    'Le Castellet': 'Europe/Paris',
+    'Istanbul': 'Europe/Istanbul',
+    'Jeddah': 'Asia/Riyadh',
+    'Miami': 'America/New_York',
+    'Zandvoort': 'Europe/Amsterdam',
+    'Mugello': 'Europe/Rome',
+    'Al Daayen': 'Asia/Qatar',
+}
+    def fix_time(self, columns:list) -> "DataCleaner":
         for col in columns:
-            self.df[col] = pd.to_datetime(self.df[col], format="%I:%M:%S %p", errors="coerce").dt.strftime("%H:%M:%S")
+            mask_ampm=self.df[col].str.contains(r'AM|PM', na=False)
+
+            dt=pd.to_datetime(self.df.loc[mask_ampm, col], format='mixed', errors='coerce')
+
+            for location, timezone in self.TIMEZONE_MAP.items():
+                loc_mask=(self.df["location"]==location) & mask_ampm
+                if loc_mask.any():
+                    self.df.loc[loc_mask, column]=(
+                        dt[loc_mask]
+                        .dt.tz_localize(timezone, ambiguous="NaT", nonexistent="NaT")
+                        .dt.tz_convert("UTC")
+                        .dt.strftime("%H:%M:%S")
+                    )
+
         return self
 
     def fix_numerical(self, columns: list) -> "DataCleaner":
