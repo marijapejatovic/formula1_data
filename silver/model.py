@@ -9,7 +9,7 @@ Base = declarative_base()
 
 
 class SilverRow(Base):
-    __tablename__ = "silver_row"
+    __tablename__ = "silver_layer"
     id=db.Column(db.String(200), primary_key=True)
 
     resultId = Column(Integer)
@@ -48,8 +48,8 @@ class SilverRow(Base):
     position_constructorstandings = Column(Integer)
     wins_constructorstandings = Column(Integer)
     positionText = Column(String(200))
-    name_x = Column(String(200))
-    name_y = Column(String(200))
+    name_race = Column(String(200))
+    name_circuit = Column(String(200))
     location = Column(String(200))
     country = Column(String(200))
     forename = Column(String(200))
@@ -59,7 +59,7 @@ class SilverRow(Base):
     positionText_constructorstandings = Column(String(200))
     positionText_driverstandings = Column(String(200))
     status = Column(String(200))
-    duration = Column(String(200))
+    duration = Column(Float)
     date = Column(Date)
     quali_date = Column(Date)
     dob = Column(Date)
@@ -80,6 +80,16 @@ class SilverRow(Base):
     constructorRef = Column(String(200))
     code = Column(String(200))
     circuitId = Column(Integer)
+    fp1_date = Column(Date)
+    fp1_time = Column(String(200))
+    fp2_date = Column(Date)
+    fp2_time = Column(String(200))
+    fp3_date = Column(Date)
+    fp3_time = Column(String(200))
+    name_constructor = Column(String(200))
+    dateId = Column(Integer)
+
+
 
 
 class DataCleaner:

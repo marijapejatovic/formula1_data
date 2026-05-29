@@ -15,7 +15,7 @@ class DIM_Constructors(Base):
 
     constructorId = Column(Integer, primary_key=True)
     constructorRef = Column(String)
-    name = Column(String)
+    name_constructor = Column(String)
     nationality_constructors = Column(String)
     url_constructors=Column(String)
 
@@ -37,21 +37,27 @@ class DIM_Race(Base):
     raceId=Column(Integer, primary_key=True)
     year=Column(Integer)
     round=Column(Integer)
-    name_x=Column(String)
-    URL_X=Column(String)
+    name_race=Column(String)
+    url_x=Column(String)
     quali_date=Column(db.Date)
     quali_time=Column(String)
     date=Column(db.Date)
     time_races=Column(String)
     sprint_date=Column(db.Date)
     sprint_time=Column(String)
+    fp1_date = Column(Date)
+    fp1_time = Column(String(200))
+    fp2_date = Column(Date)
+    fp2_time = Column(String(200))
+    fp3_date = Column(Date)
+    fp3_time = Column(String(200))
 
 class DIM_Circuit(Base):
     __tablename__="dim_circuit"
 
     circuitId=Column(Integer, primary_key=True)
     circuitRef=Column(String)
-    name_y=Column(String)
+    name_circuit=Column(String)
     location=Column(String)
     country=Column(String)
     lat=Column(Float)
