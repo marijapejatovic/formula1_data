@@ -5,7 +5,7 @@ import sqlalchemy as db
 Base = declarative_base()
 
 class BronzeRow(Base):
-    __tablename__ = "bronze_row"
+    __tablename__ = "bronze_layer"
 
     id=db.Column(db.String(200), primary_key=True)
     resultId = Column(String)
@@ -44,8 +44,8 @@ class BronzeRow(Base):
     position_constructorstandings = Column(String)
     wins_constructorstandings = Column(String)
     positionText = Column(String)
-    name_x = Column(String)
-    name_y = Column(String)
+    name_race = Column(String)
+    name_circuit = Column(String)
     location = Column(String)
     country = Column(String)
     forename = Column(String)
@@ -76,3 +76,11 @@ class BronzeRow(Base):
     constructorRef = Column(String)
     code = Column(String)
     circuitId = Column(String)
+    fp1_date = Column(String)
+    fp1_time = Column(String)
+    fp2_date = Column(String)
+    fp2_time = Column(String)
+    fp3_date = Column(String)
+    fp3_time = Column(String)
+    name_constructor=Column(String)
+    dateId=Column(String)

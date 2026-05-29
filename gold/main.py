@@ -10,6 +10,8 @@ from load import (
     load_fact_lap,
     load_fact_lappitstops
 )
+from load import load_gold
+
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import os
@@ -39,4 +41,5 @@ if __name__ == "__main__":
     load_fact_lap(engine)
     print("Loading fact_lappitstops")
     load_fact_lappitstops(engine)
-    
+    print("Loading golden_row")
+    load_gold(engine)
