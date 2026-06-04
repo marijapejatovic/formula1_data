@@ -32,32 +32,32 @@ class SilverRow(Base):
     lat = Column(Float)
     lng = Column(Float)
     alt = Column(Float)
-    number_drivers = Column(Integer)
+    drivers_number = Column(Integer)
     lap = Column(Integer)
-    position_laptimes = Column(Integer)
-    milliseconds_laptimes = Column(Integer)
+    laptimes_position = Column(Integer)
+    laptimes_milliseconds = Column(Integer)
     lap_pitstops = Column(Integer)
-    milliseconds_pitstops = Column(Integer)
+    pitstops_milliseconds = Column(Integer)
     stop = Column(Integer)
     driverStandingsId = Column(Integer)
-    points_driverstandings = Column(Float)
-    position_driverstandings = Column(Integer)
+    driverstandings_points = Column(Float)
+    driverstandings_position = Column(Integer)
     wins = Column(Integer)
     constructorStandingsId = Column(Integer)
-    points_constructorstandings = Column(Float)
-    position_constructorstandings = Column(Integer)
-    wins_constructorstandings = Column(Integer)
+    constructorstandings_points = Column(Float)
+    constructorstandings_position = Column(Integer)
+    constructorstandings_wins = Column(Integer)
     positionText = Column(String(200))
-    name_race = Column(String(200))
-    name_circuit = Column(String(200))
+    race_name = Column(String(200))
+    circuit_name = Column(String(200))
     location = Column(String(200))
     country = Column(String(200))
     forename = Column(String(200))
     surname = Column(String(200))
     nationality = Column(String(200))
-    nationality_constructors = Column(String(200))
-    positionText_constructorstandings = Column(String(200))
-    positionText_driverstandings = Column(String(200))
+    constructor_nationality = Column(String(200))
+    constructorstandings_positionText = Column(String(200))
+    driverstandings_positionText = Column(String(200))
     status = Column(String(200))
     duration = Column(Float)
     date = Column(Date)
@@ -66,15 +66,15 @@ class SilverRow(Base):
     sprint_date = Column(Date)
     time = Column(String(200))
     fastestLapTime = Column(String(200))
-    time_races = Column(String(200))
+    races_time = Column(String(200))
     quali_time = Column(String(200))
     sprint_time = Column(String(200))
-    time_laptimes = Column(String(200))
-    time_pitstops = Column(String(200))
-    url_x = Column(String(200))
-    url_y = Column(String(200))
-    url = Column(String(200))
-    url_constructors = Column(String(200))
+    laptimes_time = Column(String(200))
+    pitstops_time = Column(String(200))
+    race_url = Column(String(200))
+    circuit_url = Column(String(200))
+    driver_url = Column(String(200))
+    constructor_url = Column(String(200))
     circuitRef = Column(String(200))
     driverRef = Column(String(200))
     constructorRef = Column(String(200))
@@ -86,7 +86,7 @@ class SilverRow(Base):
     fp2_time = Column(String(200))
     fp3_date = Column(Date)
     fp3_time = Column(String(200))
-    name_constructor = Column(String(200))
+    constructor_name = Column(String(200))
     dateId = Column(Integer)
 
 
@@ -107,60 +107,7 @@ class DataCleaner:
         for col in columns:
             self.df[col] = pd.to_datetime(self.df[col], format="mixed", errors="coerce")
         return self
-    
-    TIMEZONE_MAP = {
-    'Melbourne': 'Australia/Melbourne',
-    'Kuala Lumpur': 'Asia/Kuala_Lumpur',
-    'Shanghai': 'Asia/Shanghai',
-    'Sakhir': 'Asia/Bahrain',
-    'Montmeló': 'Europe/Madrid',
-    'Monte-Carlo': 'Europe/Monaco',
-    'Montreal': 'America/Toronto',
-    'Valencia': 'Europe/Madrid',
-    'Silverstone': 'Europe/London',
-    'Hockenheim': 'Europe/Berlin',
-    'Budapest': 'Europe/Budapest',
-    'Spa': 'Europe/Brussels',
-    'Monza': 'Europe/Rome',
-    'Marina Bay': 'Asia/Singapore',
-    'Suzuka': 'Asia/Tokyo',
-    'Uttar Pradesh': 'Asia/Kolkata',
-    'Abu Dhabi': 'Asia/Dubai',
-    'Austin': 'America/Chicago',
-    'São Paulo': 'America/Sao_Paulo',
-    'Nürburg': 'Europe/Berlin',
-    'Yeongam County': 'Asia/Seoul',
-    'Spielberg': 'Europe/Vienna',
-    'Sochi': 'Europe/Moscow',
-    'Mexico City': 'America/Mexico_City',
-    'Baku': 'Asia/Baku',
-    'Imola': 'Europe/Rome',
-    'Portimão': 'Europe/Lisbon',
-    'Le Castellet': 'Europe/Paris',
-    'Istanbul': 'Europe/Istanbul',
-    'Jeddah': 'Asia/Riyadh',
-    'Miami': 'America/New_York',
-    'Zandvoort': 'Europe/Amsterdam',
-    'Mugello': 'Europe/Rome',
-    'Al Daayen': 'Asia/Qatar',
-}
-    def fix_time(self, columns:list) -> "DataCleaner":
-        for col in columns:
-            mask_ampm=self.df[col].str.contains(r'AM|PM', na=False)
 
-            dt=pd.to_datetime(self.df.loc[mask_ampm, col], format='mixed', errors='coerce')
-
-            for location, timezone in self.TIMEZONE_MAP.items():
-                loc_mask=(self.df["location"]==location) & mask_ampm
-                if loc_mask.any():
-                    self.df.loc[loc_mask, column]=(
-                        dt[loc_mask]
-                        .dt.tz_localize(timezone, ambiguous="NaT", nonexistent="NaT")
-                        .dt.tz_convert("UTC")
-                        .dt.strftime("%H:%M:%S")
-                    )
-
-        return self
 
     def fix_numerical(self, columns: list) -> "DataCleaner":
         for col in columns:

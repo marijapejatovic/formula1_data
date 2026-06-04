@@ -13,7 +13,14 @@ services:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s
       retries: 5
-
+  airflow-init:
+    image: apache/airflow:2.8.1
+    command: db init
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    depends_on:
+      postgres:
+        condition: service_healthy
   airflow-webserver:
     image: apache/airflow:2.8.1
     command: standalone
