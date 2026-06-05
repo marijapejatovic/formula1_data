@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
@@ -39,7 +39,7 @@ with DAG(
     dag_id="f1_medallion_pipeline",
     default_args=default_args,
     description="F1 data pipeline: Bronze -> Silver -> Gold",
-    schedule_interval=None,
+    schedule=None,
     start_date=datetime(2025, 1, 1),
     catchup=False,
     tags=["f1", "medallion"],

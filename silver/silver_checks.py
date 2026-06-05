@@ -40,4 +40,3 @@ def run_checks(engine):
     check_negative_values(df)
     check_year(df)
     check_dates(df)
-    

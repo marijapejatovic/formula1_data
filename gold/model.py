@@ -118,6 +118,7 @@ class factResults(Base):
     positionText = Column(String)
     time = Column(String)
     fastestLapTime = Column(String)
+    dateId = Column(Integer)
 
 class factLap(Base):
     __tablename__ = "factLap"

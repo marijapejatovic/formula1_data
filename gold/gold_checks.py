@@ -3,9 +3,9 @@ import pandas as pd
 def check_row_counts(engine):
     tables=["factResults", "factLap", "factPitstop", "dimDriver", "dimRace", "dimCircuit", "dimConstructors", "dimStatus", "dimDate", "dimDriverStandings", "dimConstructorStandings"]
     for table in tables:
-        count=pd.read_sql(f"select count(*) as cnt from {table}", engine)
+        count=pd.read_sql(f'select count(*) as cnt from "{table}"', engine)
         if count['cnt'][0]==0:
-            raise ValueError(f"Table {table} is empty ingold layer")
+            raise ValueError(f"Table {table} is empty in gold layer")
 
 def check_foreign_keys(engine):
     fact = pd.read_sql('SELECT "driverId", "raceId", "constructorId", "statusId", "circuitId", "driverStandingsId", "constructorStandingsId", "dateId" FROM "factResults"', engine)
@@ -66,18 +66,14 @@ def check_foreign_keys(engine):
     print("All foreign key checks passed.")
 
 def check_aggregations(engine):
-    # broj vozača u dim mora odgovarati distinct driverId u fact
-    dim_count = pd.read_sql('SELECT COUNT(*) as cnt FROM dim_driver', engine)
-    fact_count = pd.read_sql('SELECT COUNT(DISTINCT "driverId") as cnt FROM fact', engine)
+    dim_count = pd.read_sql('SELECT COUNT(*) as cnt FROM "dimDriver"', engine)
+    fact_count = pd.read_sql('SELECT COUNT(DISTINCT "driverId") as cnt FROM "factResults"', engine)
     if dim_count['cnt'][0] != fact_count['cnt'][0]:
-        raise ValueError("Driver count mismatch between dim_driver and fact")
+        raise ValueError("Driver count mismatch between dimDriver and factResults")
     print("Aggregation checks passed.")
 
 
 def run_checks(engine):
     check_row_counts(engine)
     check_foreign_keys(engine)
-    check_fact_nulls(engine)
-    check_points_total(engine)
     check_aggregations(engine)
-    check_kpi_thresholds(engine)
