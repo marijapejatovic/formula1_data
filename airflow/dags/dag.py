@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.providers.standard.operators.python import PythonOperator
+from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
@@ -11,19 +11,26 @@ def get_engine():
     return create_engine(os.getenv("DATABASE_URL"))
 
 def run_bronze():
-    from bronze.load import load_bronze
+    import sys
+    sys.path.insert(0, "/opt/airflow/project/bronze")
+    from load import load_bronze
     engine = get_engine()
-    df = load_bronze(engine)
+    bronza_csv = os.getenv("bronze_csv")
+    df = load_bronze(engine, bronza_csv)
     print(f"Bronze učitano: {len(df)} redova")
 
 def run_silver():
-    from silver.load import load_silver
+    import sys
+    sys.path.insert(0, "/opt/airflow/project/silver")
+    from load import load_silver
     engine = get_engine()
     df = load_silver(engine)
     print(f"Silver redovi: {len(df)}")
 
 def run_gold():
-    from gold.load import load_gold
+    import sys
+    sys.path.insert(0, "/opt/airflow/project/gold")
+    from load import load_gold
     engine = get_engine()
     load_gold(engine)
     print("Gold layer učitan")
