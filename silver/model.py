@@ -2,15 +2,17 @@ import pandas as pd
 import validators
 from sqlalchemy import Column, Integer, Float, String, Date
 from sqlalchemy.orm import declarative_base
+import sqlalchemy as db
 
 
 Base = declarative_base()
 
 
 class SilverRow(Base):
-    __tablename__ = "silver_row"
+    __tablename__ = "silver_layer"
+    id=db.Column(db.String(200), primary_key=True)
 
-    resultId = Column(Integer, primary_key=True)
+    resultId = Column(Integer)
     raceId = Column(Integer)
     driverId = Column(Integer)
     constructorId = Column(Integer)
@@ -30,54 +32,64 @@ class SilverRow(Base):
     lat = Column(Float)
     lng = Column(Float)
     alt = Column(Float)
-    number_drivers = Column(Integer)
+    drivers_number = Column(Integer)
     lap = Column(Integer)
-    position_laptimes = Column(Integer)
-    milliseconds_laptimes = Column(Integer)
+    laptimes_position = Column(Integer)
+    laptimes_milliseconds = Column(Integer)
     lap_pitstops = Column(Integer)
-    milliseconds_pitstops = Column(Integer)
+    pitstops_milliseconds = Column(Integer)
     stop = Column(Integer)
     driverStandingsId = Column(Integer)
-    points_driverstandings = Column(Float)
-    position_driverstandings = Column(Integer)
+    driverstandings_points = Column(Float)
+    driverstandings_position = Column(Integer)
     wins = Column(Integer)
     constructorStandingsId = Column(Integer)
-    points_constructorstandings = Column(Float)
-    position_constructorstandings = Column(Integer)
-    wins_constructorstandings = Column(Integer)
+    constructorstandings_points = Column(Float)
+    constructorstandings_position = Column(Integer)
+    constructorstandings_wins = Column(Integer)
     positionText = Column(String(200))
-    name_x = Column(String(200))
-    name_y = Column(String(200))
+    race_name = Column(String(200))
+    circuit_name = Column(String(200))
     location = Column(String(200))
     country = Column(String(200))
     forename = Column(String(200))
     surname = Column(String(200))
     nationality = Column(String(200))
-    nationality_constructors = Column(String(200))
-    positionText_constructorstandings = Column(String(200))
-    positionText_driverstandings = Column(String(200))
+    constructor_nationality = Column(String(200))
+    constructorstandings_positionText = Column(String(200))
+    driverstandings_positionText = Column(String(200))
     status = Column(String(200))
-    duration = Column(String(200))
+    duration = Column(Float)
     date = Column(Date)
     quali_date = Column(Date)
     dob = Column(Date)
     sprint_date = Column(Date)
     time = Column(String(200))
     fastestLapTime = Column(String(200))
-    time_races = Column(String(200))
+    races_time = Column(String(200))
     quali_time = Column(String(200))
     sprint_time = Column(String(200))
-    time_laptimes = Column(String(200))
-    time_pitstops = Column(String(200))
-    url_x = Column(String(200))
-    url_y = Column(String(200))
-    url = Column(String(200))
-    url_constructors = Column(String(200))
+    laptimes_time = Column(String(200))
+    pitstops_time = Column(String(200))
+    race_url = Column(String(200))
+    circuit_url = Column(String(200))
+    driver_url = Column(String(200))
+    constructor_url = Column(String(200))
     circuitRef = Column(String(200))
     driverRef = Column(String(200))
     constructorRef = Column(String(200))
     code = Column(String(200))
     circuitId = Column(Integer)
+    fp1_date = Column(Date)
+    fp1_time = Column(String(200))
+    fp2_date = Column(Date)
+    fp2_time = Column(String(200))
+    fp3_date = Column(Date)
+    fp3_time = Column(String(200))
+    constructor_name = Column(String(200))
+    dateId = Column(Integer)
+
+
 
 
 class DataCleaner:
@@ -96,10 +108,6 @@ class DataCleaner:
             self.df[col] = pd.to_datetime(self.df[col], format="mixed", errors="coerce")
         return self
 
-    def fix_time(self, columns: list) -> "DataCleaner":
-        for col in columns:
-            self.df[col] = pd.to_datetime(self.df[col], format="%I:%M:%S %p", errors="coerce").dt.strftime("%H:%M:%S")
-        return self
 
     def fix_numerical(self, columns: list) -> "DataCleaner":
         for col in columns:

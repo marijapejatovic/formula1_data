@@ -1,12 +1,14 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
+import sqlalchemy as db
 
 Base = declarative_base()
 
 class BronzeRow(Base):
-    __tablename__ = "bronze_row"
+    __tablename__ = "bronze_layer"
 
-    resultId = Column(String, primary_key=True)
+    id=db.Column(db.String(200), primary_key=True)
+    resultId = Column(String)
     raceId = Column(String)
     driverId = Column(String)
     constructorId = Column(String)
@@ -74,3 +76,11 @@ class BronzeRow(Base):
     constructorRef = Column(String)
     code = Column(String)
     circuitId = Column(String)
+    fp1_date = Column(String)
+    fp1_time = Column(String)
+    fp2_date = Column(String)
+    fp2_time = Column(String)
+    fp3_date = Column(String)
+    fp3_time = Column(String)
+    name=Column(String)
+    dateId=Column(String)

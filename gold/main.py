@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pandas as pd
 from sqlalchemy import create_engine, text
 import sqlalchemy as db
@@ -126,3 +127,20 @@ def load_gold(engine):
             conn.commit()
     golden_layer.to_sql("golden_layer", engine, if_exists="append", index=False)
     return golden_layer
+=======
+
+from load import load_gold
+from model import Base
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+import os
+from gold_checks import run_checks
+
+if __name__ == "__main__":
+    load_dotenv()
+    engine = create_engine(os.getenv("DATABASE_URL"))
+    Base.metadata.create_all(engine)
+    print("Loading golden_row")
+    load_gold(engine)
+    run_checks(engine)
+>>>>>>> dev_new
