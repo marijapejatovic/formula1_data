@@ -1,6 +1,7 @@
 from load import load_bronze
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
+import sqlalchemy
 import os
 import pandas as pd
 if __name__=="__main__":

@@ -1,0 +1,108 @@
+[2026-06-08T07:25:10.974+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-08T07:25:10.985+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: f1_medallion_pipeline.load_bronze manual__2026-06-08T07:25:09.893856+00:00 [queued]>
+[2026-06-08T07:25:10.990+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: f1_medallion_pipeline.load_bronze manual__2026-06-08T07:25:09.893856+00:00 [queued]>
+[2026-06-08T07:25:10.990+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2026-06-08T07:25:11.003+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): load_bronze> on 2026-06-08 07:25:09.893856+00:00
+[2026-06-08T07:25:11.007+0000] {standard_task_runner.py:72} INFO - Started process 216 to run task
+[2026-06-08T07:25:11.010+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'f1_medallion_pipeline', 'load_bronze', 'manual__2026-06-08T07:25:09.893856+00:00', '--job-id', '33', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmpedae35ey']
+[2026-06-08T07:25:11.013+0000] {standard_task_runner.py:105} INFO - Job 33: Subtask load_bronze
+[2026-06-08T07:25:11.058+0000] {task_command.py:467} INFO - Running <TaskInstance: f1_medallion_pipeline.load_bronze manual__2026-06-08T07:25:09.893856+00:00 [running]> on host a677210ba3d8
+[2026-06-08T07:25:11.123+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='f1_medallion_pipeline' AIRFLOW_CTX_TASK_ID='load_bronze' AIRFLOW_CTX_EXECUTION_DATE='2026-06-08T07:25:09.893856+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-08T07:25:09.893856+00:00'
+[2026-06-08T07:25:11.124+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-08T07:25:16.571+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dag.py", line 19, in run_bronze
+    df = load_bronze(engine, bronza_csv)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/project/bronze/load.py", line 12, in load_bronze
+    conn.commit()
+    ^^^^^^^^^^^
+AttributeError: 'Connection' object has no attribute 'commit'
+[2026-06-08T07:25:16.592+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=f1_medallion_pipeline, task_id=load_bronze, run_id=manual__2026-06-08T07:25:09.893856+00:00, execution_date=20260608T072509, start_date=20260608T072510, end_date=20260608T072516
+[2026-06-08T07:25:16.616+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-08T07:25:16.618+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 33 for task load_bronze ('Connection' object has no attribute 'commit'; 216)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dag.py", line 19, in run_bronze
+    df = load_bronze(engine, bronza_csv)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/project/bronze/load.py", line 12, in load_bronze
+    conn.commit()
+    ^^^^^^^^^^^
+AttributeError: 'Connection' object has no attribute 'commit'
+[2026-06-08T07:25:16.663+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-06-08T07:25:16.675+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-06-08T07:25:16.678+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

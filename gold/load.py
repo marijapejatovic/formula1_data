@@ -17,9 +17,8 @@ def load_dim_race(engine):
         WHERE "raceId" IS NOT NULL
         ORDER BY "raceId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimRace" CASCADE'))
-        conn.commit()
     dimRace.to_sql("dimRace", engine, if_exists="append", index=False)
     return dimRace
 def load_dim_date(engine):
@@ -31,23 +30,21 @@ def load_dim_date(engine):
         "month":  dates.month,
         "day":    dates.day
     })
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimDate" CASCADE'))
-        conn.commit()
     dimDate.to_sql("dimDate", engine, if_exists="append", index=False)
     return dimDate
 def load_dim_driver(engine):
     dim_driver = pd.read_sql("""
         SELECT DISTINCT ON ("driverId")
             "driverId", "driverRef", "number", "code",
-            "forename", "surname", "nationality", "driver_url"
+            "forename", "surname", "nationality", "driver_url", "dob"
         FROM silver_layer
         WHERE "driverId" IS NOT NULL
         ORDER BY "driverId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimDriver" CASCADE'))
-        conn.commit()
     dim_driver.to_sql("dimDriver", engine, if_exists="append", index=False)
     return dim_driver
 
@@ -59,9 +56,8 @@ def load_dim_status(engine):
         WHERE "statusId" IS NOT NULL
         ORDER BY "statusId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimStatus" CASCADE'))
-        conn.commit()
     dimStatus.to_sql("dimStatus", engine, if_exists="append", index=False)
     return dimStatus
 
@@ -74,9 +70,8 @@ def load_dim_constructors(engine):
         WHERE "constructorId" IS NOT NULL
         ORDER BY "constructorId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimConstructors" CASCADE'))
-        conn.commit()
     dimConstructors.to_sql("dimConstructors", engine, if_exists="append", index=False)
     return dimConstructors
 
@@ -89,9 +84,8 @@ def load_dim_circuit(engine):
         WHERE "circuitId" IS NOT NULL
         ORDER BY "circuitId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimCircuit" CASCADE'))
-        conn.commit()
     dimCircuit.to_sql("dimCircuit", engine, if_exists="append", index=False)
     return dimCircuit
 
@@ -105,9 +99,8 @@ def load_dim_constructorstandings(engine):
         WHERE "constructorStandingsId" IS NOT NULL
         ORDER BY "constructorStandingsId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimConstructorStandings" CASCADE'))
-        conn.commit()
     dimConstructorStandings.to_sql("dimConstructorStandings", engine, if_exists="append", index=False)
     return dimConstructorStandings
 
@@ -120,9 +113,8 @@ def load_dim_driverstandings(engine):
         WHERE "driverStandingsId" IS NOT NULL
         ORDER BY "driverStandingsId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "dimDriverStandings" CASCADE'))
-        conn.commit()
     dimDriverStandings.to_sql("dimDriverStandings", engine, if_exists="append", index=False)
     return dimDriverStandings
 
@@ -137,9 +129,8 @@ def load_fact(engine):
         WHERE "resultId" IS NOT NULL
         ORDER BY "resultId"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "factResults" CASCADE'))
-        conn.commit()
     factResults.to_sql("factResults", engine, if_exists="append", index=False)
     return factResults
 
@@ -152,9 +143,8 @@ def load_fact_lap(engine):
         WHERE "lap" IS NOT NULL
         ORDER BY "raceId", "driverId", "lap"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "factLap" CASCADE'))
-        conn.commit()
     factLap.to_sql("factLap", engine, if_exists="append", index=False)
     return factLap
 
@@ -167,9 +157,8 @@ def load_fact_pitstop(engine):
         WHERE "stop" IS NOT NULL
         ORDER BY "raceId", "driverId", "stop"
     """, engine)
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text('TRUNCATE TABLE "factPitstop" CASCADE'))
-        conn.commit()
     factPitstop.to_sql("factPitstop", engine, if_exists="append", index=False)
     return factPitstop
 

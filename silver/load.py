@@ -43,10 +43,9 @@ def load_silver(engine):
         .standardize_lowercase(["circuitRef", "driverRef", "constructorRef"])
         .standardize_uppercase(["code"])
     )
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         if db.inspect(engine).has_table("silver_layer"):
             conn.execute(db.text("TRUNCATE TABLE silver_layer CASCADE"))
-            conn.commit()
     silver_layer.df=silver_layer.df.rename(columns={"Unnamed: 0": "id"})
     silver_layer.df["dateId"] = pd.to_datetime(silver_layer.df["date"]).dt.strftime("%Y%m%d").astype("Int64")
     silver_layer.df.to_sql("silver_layer", engine, if_exists="append", index=False)

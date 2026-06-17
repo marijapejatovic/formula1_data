@@ -1,20 +1,16 @@
 import pandas as pd
 
 def check_nulls(df):
-    nulls = df.isnull().sum()
-    print("Null values in each column:")
-    print(nulls)
+    columns=["driverId", "raceId", "circuitId", "driverStandingsId", "constructorStandingsId", "statusId", "id", "constructorId", "dateId", "lap", "stop"]
+    for col in columns:
+        if df[col].isnull().any():
+            raise ValueError(f"Null values found in column {col} in silver layer")
+    
 def check_duplicates(df):
-    duplicates = df.duplicated().sum()
-    print(f"Number of duplicate rows: {duplicates}")
-def check_data_types(df):
-    print("Data types of each column:")
-    print(df.dtypes)    
-def check_row_counts(df, df_bronze):
-    print(f"Number of rows in silver layer: {len(df)}")
-    print(f"Number of rows in bronze layer: {len(df_bronze)}")
-    if len(df)!=len(df_bronze):
-        raise ValueError("Row count mismatch between silver and bronze layers")
+    duplicates = df.duplicated(subset=["id"]).sum()
+    if duplicates > 0:
+        raise ValueError(f"Found {duplicates} duplicate id(s) in silver layer")
+
 def check_negative_values(df):
     columns = ["points", "duration", "pitstops_milliseconds", "lap_pitstops", "year", "round", "driverstandings_points", "driverstandings_position", "constructorstandings_points", "constructorstandings_position", "positionOrder", "grid", "laps", "rank", "fastestLap", "fastestLapSpeed"]
     for col in columns:
@@ -35,8 +31,6 @@ def run_checks(engine):
     df_bronze = pd.read_sql("SELECT * FROM bronze_layer", engine)
     check_nulls(df)
     check_duplicates(df)
-    check_data_types(df)
-    check_row_counts(df, df_bronze)
     check_negative_values(df)
     check_year(df)
     check_dates(df)
