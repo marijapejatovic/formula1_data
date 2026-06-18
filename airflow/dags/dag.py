@@ -35,6 +35,13 @@ def run_gold():
     load_gold(engine)
     print("Gold layer učitan")
 
+def run_kafka():
+    import sys
+    sys.path.insert(0, "/opt/airflow/project/kafka")
+    from consumer import load_kafka
+    engine = get_engine()
+    load_kafka(engine)
+
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
@@ -67,4 +74,9 @@ with DAG(
         python_callable=run_gold,
     )
 
-    bronze_task >> silver_task >> gold_task
+    kafka_task = PythonOperator(
+        task_id="load_kafka",
+        python_callable=run_kafka,
+    )
+
+    kafka_task >> bronze_task >> silver_task >> gold_task

@@ -1,0 +1,175 @@
+[2026-06-18T12:59:25.629+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-18T12:59:25.639+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: f1_medallion_pipeline.load_kafka manual__2026-06-18T12:59:24.622513+00:00 [queued]>
+[2026-06-18T12:59:25.645+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: f1_medallion_pipeline.load_kafka manual__2026-06-18T12:59:24.622513+00:00 [queued]>
+[2026-06-18T12:59:25.646+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2026-06-18T12:59:25.656+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): load_kafka> on 2026-06-18 12:59:24.622513+00:00
+[2026-06-18T12:59:25.660+0000] {standard_task_runner.py:72} INFO - Started process 203 to run task
+[2026-06-18T12:59:25.662+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'f1_medallion_pipeline', 'load_kafka', 'manual__2026-06-18T12:59:24.622513+00:00', '--job-id', '93', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmpl0cmam3g']
+[2026-06-18T12:59:25.664+0000] {standard_task_runner.py:105} INFO - Job 93: Subtask load_kafka
+[2026-06-18T12:59:25.706+0000] {task_command.py:467} INFO - Running <TaskInstance: f1_medallion_pipeline.load_kafka manual__2026-06-18T12:59:24.622513+00:00 [running]> on host ef422da594c0
+[2026-06-18T12:59:25.778+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='f1_medallion_pipeline' AIRFLOW_CTX_TASK_ID='load_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-06-18T12:59:24.622513+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-18T12:59:24.622513+00:00'
+[2026-06-18T12:59:25.780+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-18T12:59:26.115+0000] {manager.py:78} WARNING - socks5_proxy is deprecated, use proxy_url instead
+[2026-06-18T12:59:26.117+0000] {selector.py:204} INFO - IO loop starting (client_id=kafka-python-3.0.1)
+[2026-06-18T12:59:26.118+0000] {manager.py:247} ERROR - Connection failed: KafkaConnectionError: 111 ECONNREFUSED
+[2026-06-18T12:59:26.120+0000] {cluster.py:171} INFO - Metadata refresh (node_id=bootstrap-0)
+[2026-06-18T12:59:26.120+0000] {cluster.py:177} ERROR - Metadata refresh: failed NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:26.121+0000] {manager.py:152} ERROR - Bootstrap attempt to bootstrap-0 failed: NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:26.211+0000] {manager.py:247} ERROR - Connection failed: KafkaConnectionError: 111 ECONNREFUSED
+[2026-06-18T12:59:26.213+0000] {cluster.py:171} INFO - Metadata refresh (node_id=bootstrap-0)
+[2026-06-18T12:59:26.214+0000] {cluster.py:177} ERROR - Metadata refresh: failed NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:26.215+0000] {manager.py:152} ERROR - Bootstrap attempt to bootstrap-0 failed: NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:26.623+0000] {manager.py:247} ERROR - Connection failed: KafkaConnectionError: 111 ECONNREFUSED
+[2026-06-18T12:59:26.626+0000] {cluster.py:171} INFO - Metadata refresh (node_id=bootstrap-0)
+[2026-06-18T12:59:26.628+0000] {cluster.py:177} ERROR - Metadata refresh: failed NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:26.629+0000] {manager.py:152} ERROR - Bootstrap attempt to bootstrap-0 failed: NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:28.263+0000] {manager.py:247} ERROR - Connection failed: KafkaConnectionError: 111 ECONNREFUSED
+[2026-06-18T12:59:28.264+0000] {cluster.py:171} INFO - Metadata refresh (node_id=bootstrap-0)
+[2026-06-18T12:59:28.265+0000] {cluster.py:177} ERROR - Metadata refresh: failed NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:28.266+0000] {manager.py:152} ERROR - Bootstrap attempt to bootstrap-0 failed: NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:35.739+0000] {manager.py:247} ERROR - Connection failed: KafkaConnectionError: 111 ECONNREFUSED
+[2026-06-18T12:59:35.741+0000] {cluster.py:171} INFO - Metadata refresh (node_id=bootstrap-0)
+[2026-06-18T12:59:35.742+0000] {cluster.py:177} ERROR - Metadata refresh: failed NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:35.743+0000] {manager.py:152} ERROR - Bootstrap attempt to bootstrap-0 failed: NodeNotReadyError: bootstrap-0
+[2026-06-18T12:59:56.138+0000] {manager.py:172} ERROR - Bootstrap failed: KafkaTimeoutError: Unable to bootstrap from ['host.docker.internal:9092']
+[2026-06-18T12:59:56.141+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dag.py", line 43, in run_kafka
+    load_kafka(engine)
+  File "/opt/airflow/project/kafka/consumer.py", line 31, in load_kafka
+    consumer = KafkaConsumer(
+               ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/consumer/group.py", line 432, in __init__
+    self._manager.bootstrap(self.config['bootstrap_timeout_ms'])
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/manager.py", line 176, in bootstrap
+    self._net.run(self.bootstrap_async, timeout_ms, refresh)
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 296, in run
+    raise state['exception']  # pylint: disable=E0702
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 284, in waiter
+    state['value'] = await self._invoke(coro, *args)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 361, in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/future.py", line 165, in __await__
+    raise self.exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 342, in wrapper
+    future.success(await self._invoke(coro, *args))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 355, in _invoke
+    result = await coro(*args)
+             ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/manager.py", line 163, in _do_bootstrap
+    raise Errors.KafkaTimeoutError(
+kafka.errors.KafkaTimeoutError: KafkaTimeoutError: Unable to bootstrap from ['host.docker.internal:9092']
+[2026-06-18T12:59:56.157+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=f1_medallion_pipeline, task_id=load_kafka, run_id=manual__2026-06-18T12:59:24.622513+00:00, execution_date=20260618T125924, start_date=20260618T125925, end_date=20260618T125956
+[2026-06-18T12:59:56.183+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-18T12:59:56.186+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 93 for task load_kafka (KafkaTimeoutError: Unable to bootstrap from ['host.docker.internal:9092']; 203)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dag.py", line 43, in run_kafka
+    load_kafka(engine)
+  File "/opt/airflow/project/kafka/consumer.py", line 31, in load_kafka
+    consumer = KafkaConsumer(
+               ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/consumer/group.py", line 432, in __init__
+    self._manager.bootstrap(self.config['bootstrap_timeout_ms'])
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/manager.py", line 176, in bootstrap
+    self._net.run(self.bootstrap_async, timeout_ms, refresh)
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 296, in run
+    raise state['exception']  # pylint: disable=E0702
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 284, in waiter
+    state['value'] = await self._invoke(coro, *args)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 361, in _invoke
+    result = await result
+             ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/future.py", line 165, in __await__
+    raise self.exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 342, in wrapper
+    future.success(await self._invoke(coro, *args))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/selector.py", line 355, in _invoke
+    result = await coro(*args)
+             ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/kafka/net/manager.py", line 163, in _do_bootstrap
+    raise Errors.KafkaTimeoutError(
+kafka.errors.KafkaTimeoutError: KafkaTimeoutError: Unable to bootstrap from ['host.docker.internal:9092']
+[2026-06-18T12:59:56.234+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2026-06-18T12:59:56.248+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-06-18T12:59:56.253+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

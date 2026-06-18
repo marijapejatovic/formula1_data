@@ -6,6 +6,7 @@ Base = declarative_base()
 
 class BronzeRow(Base):
     __tablename__ = "bronze_layer"
+    __table_args__={"schema": "bronze"}
 
     id=db.Column(db.String(200), primary_key=True)
     resultId = Column(String)

@@ -10,6 +10,7 @@ Base = declarative_base()
 
 class SilverRow(Base):
     __tablename__ = "silver_layer"
+    __table_args__ = {"schema": "silver"}
     id=db.Column(db.String(200), primary_key=True)
 
     resultId = Column(Integer)

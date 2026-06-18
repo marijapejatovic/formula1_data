@@ -1,0 +1,47 @@
+[2026-06-18T13:05:24.318+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-18T13:05:24.330+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: f1_medallion_pipeline.load_kafka manual__2026-06-18T12:59:24.622513+00:00 [queued]>
+[2026-06-18T13:05:24.336+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: f1_medallion_pipeline.load_kafka manual__2026-06-18T12:59:24.622513+00:00 [queued]>
+[2026-06-18T13:05:24.336+0000] {taskinstance.py:2867} INFO - Starting attempt 2 of 2
+[2026-06-18T13:05:24.347+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): load_kafka> on 2026-06-18 12:59:24.622513+00:00
+[2026-06-18T13:05:24.352+0000] {standard_task_runner.py:72} INFO - Started process 203 to run task
+[2026-06-18T13:05:24.354+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'f1_medallion_pipeline', 'load_kafka', 'manual__2026-06-18T12:59:24.622513+00:00', '--job-id', '97', '--raw', '--subdir', 'DAGS_FOLDER/dag.py', '--cfg-path', '/tmp/tmpbsqsndh7']
+[2026-06-18T13:05:24.356+0000] {standard_task_runner.py:105} INFO - Job 97: Subtask load_kafka
+[2026-06-18T13:05:24.396+0000] {task_command.py:467} INFO - Running <TaskInstance: f1_medallion_pipeline.load_kafka manual__2026-06-18T12:59:24.622513+00:00 [running]> on host 98b194793258
+[2026-06-18T13:05:24.458+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='f1_medallion_pipeline' AIRFLOW_CTX_TASK_ID='load_kafka' AIRFLOW_CTX_EXECUTION_DATE='2026-06-18T12:59:24.622513+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-18T12:59:24.622513+00:00'
+[2026-06-18T13:05:24.460+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-18T13:05:24.784+0000] {manager.py:78} WARNING - socks5_proxy is deprecated, use proxy_url instead
+[2026-06-18T13:05:24.786+0000] {selector.py:204} INFO - IO loop starting (client_id=kafka-python-3.0.1)
+[2026-06-18T13:05:24.799+0000] {connection.py:403} INFO - <KafkaConnection node_id=bootstrap-0 host=[172.17.0.1:9092<-49026] broker_version=unknown (initializing)>: Broker version identified as 3.4
+[2026-06-18T13:05:24.800+0000] {cluster.py:171} INFO - Metadata refresh (node_id=bootstrap-0)
+[2026-06-18T13:05:24.810+0000] {cluster.py:640} INFO - Updated metadata: ClusterMetadata(brokers: 1, topics: 0, coordinators: 0)
+[2026-06-18T13:05:24.811+0000] {manager.py:158} INFO - Bootstrap complete: ClusterMetadata(brokers: 1, topics: 0, coordinators: 0)
+[2026-06-18T13:05:24.812+0000] {transport.py:46} INFO - <KafkaTCPTransport [172.17.0.1:9092<-49026]>: Closing transport
+[2026-06-18T13:05:24.812+0000] {cluster.py:120} INFO - Starting metadata refresh loop
+[2026-06-18T13:05:24.813+0000] {consumer.py:105} WARNING - group_id is None: disabling auto-commit.
+[2026-06-18T13:05:24.814+0000] {subscription_state.py:178} INFO - Updating subscribed topics to: ('f1-data',)
+[2026-06-18T13:05:24.910+0000] {cluster.py:171} INFO - Metadata refresh (node_id=1)
+[2026-06-18T13:05:24.919+0000] {connection.py:403} INFO - <KafkaConnection node_id=1 host=[172.17.0.1:9092<-49038] broker_version=(3, 4) (initializing)>: Broker version identified as 3.4
+[2026-06-18T13:05:24.922+0000] {connection.py:407} INFO - <KafkaConnection node_id=1 host=[172.17.0.1:9092<-49038] broker_version=(3, 4) (initializing)>: Clamping client to user-supplied broker version 3.4
+[2026-06-18T13:05:24.960+0000] {cluster.py:590} WARNING - Topic f1-data is not available during auto-create initialization
+[2026-06-18T13:05:24.961+0000] {cluster.py:640} INFO - Updated metadata: ClusterMetadata(brokers: 1, topics: 0, coordinators: 0)
+[2026-06-18T13:05:24.963+0000] {subscription_state.py:270} INFO - Updated partition assignment: []
+[2026-06-18T13:05:25.062+0000] {cluster.py:171} INFO - Metadata refresh (node_id=1)
+[2026-06-18T13:05:25.068+0000] {cluster.py:590} WARNING - Topic f1-data is not available during auto-create initialization
+[2026-06-18T13:05:25.069+0000] {cluster.py:640} INFO - Updated metadata: ClusterMetadata(brokers: 1, topics: 0, coordinators: 0)
+[2026-06-18T13:05:25.170+0000] {cluster.py:171} INFO - Metadata refresh (node_id=1)
+[2026-06-18T13:05:25.175+0000] {cluster.py:640} INFO - Updated metadata: ClusterMetadata(brokers: 1, topics: 1, coordinators: 0)
+[2026-06-18T13:05:25.177+0000] {subscription_state.py:270} INFO - Updated partition assignment: [('f1-data', 0)]
+[2026-06-18T13:05:25.225+0000] {fetcher.py:634} INFO - Resetting offset for partition ('f1-data', 0) to offset 0.
+[2026-06-18T13:05:34.816+0000] {consumer.py:725} INFO - Revoking previously assigned partitions (('f1-data', 0),) for group None on close
+[2026-06-18T13:05:34.819+0000] {subscription_state.py:270} INFO - Updated partition assignment: []
+[2026-06-18T13:05:34.821+0000] {transport.py:46} INFO - <KafkaTCPTransport [172.17.0.1:9092<-49038]>: Closing transport
+[2026-06-18T13:05:34.823+0000] {fetcher.py:1338} INFO - Fetch to node 1 failed: Cancelled
+[2026-06-18T13:05:34.826+0000] {cluster.py:137} INFO - Stopping metadata refresh loop
+[2026-06-18T13:05:34.829+0000] {selector.py:215} INFO - IO loop exited cleanly (client_id=kafka-python-3.0.1, stop=True)
+[2026-06-18T13:05:34.831+0000] {logging_mixin.py:190} INFO - Kafka load završen
+[2026-06-18T13:05:34.833+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-06-18T13:05:34.843+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-18T13:05:34.845+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=f1_medallion_pipeline, task_id=load_kafka, run_id=manual__2026-06-18T12:59:24.622513+00:00, execution_date=20260618T125924, start_date=20260618T130524, end_date=20260618T130534
+[2026-06-18T13:05:34.903+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-18T13:05:34.922+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-18T13:05:34.926+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

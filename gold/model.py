@@ -1,50 +1,3 @@
-<<<<<<< HEAD
-from load import (
-    load_dim_race,
-    load_dim_driver,
-    load_dim_date,
-    load_dim_status,
-    load_dim_constructors,
-    load_dim_circuit,
-    load_dim_constructorstandings,
-    load_fact,
-    load_fact_lap,
-    load_fact_lappitstops
-)
-from load import load_gold
-
-from sqlalchemy import create_engine
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-if __name__ == "__main__":
-    engine = create_engine(os.getenv("DATABASE_URL"))
-    
-    print("Loading dim_status")
-    load_dim_status(engine)
-    print("Loading dim_constructors")
-    load_dim_constructors(engine)
-    print("Loading dim_driver")
-    load_dim_driver(engine)
-    print("Loading dim_race")
-    load_dim_race(engine)
-    print("Loading dim_circuit")
-    load_dim_circuit(engine)
-    print("Loading dim_constructorstandings")
-    load_dim_constructorstandings(engine)
-    print("Loading dim_date")
-    load_dim_date(engine)
-    print("Loading fact")
-    load_fact(engine)
-    print("Loading fact_lap")
-    load_fact_lap(engine)
-    print("Loading fact_lappitstops")
-    load_fact_lappitstops(engine)
-    print("Loading golden_row")
-    load_gold(engine)
-=======
 from sqlalchemy import Column, Integer, String, Float, Date 
 from sqlalchemy.orm import declarative_base
 import sqlalchemy as db
@@ -52,13 +5,15 @@ import sqlalchemy as db
 Base = declarative_base()
 
 class dimStatus(Base):
-    __tablename__ = "dim_status"
+    __tablename__ = "dimStatus"
+    __table_args__={"schema": "gold"}
 
     statusId = Column(Integer, primary_key=True)
     status = Column(String)
 
 class dimConstructors(Base):
-    __tablename__ = "dim_constructors"
+    __tablename__ = "dimConstructors"
+    __table_args__={"schema": "gold"}
 
     constructorId = Column(Integer, primary_key=True)
     constructorRef = Column(String)
@@ -67,8 +22,8 @@ class dimConstructors(Base):
     constructor_url = Column(String)
 
 class dimDriver(Base):
-    __tablename__ = "dim_driver"
-
+    __tablename__ = "dimDriver"
+    __table_args__={"schema": "gold"}
     driverId = Column(Integer, primary_key=True)
     driverRef = Column(String)
     number = Column(Integer)
@@ -80,8 +35,8 @@ class dimDriver(Base):
     dob = Column(Date)
 
 class dimRace(Base):
-    __tablename__ = "dim_race"
-
+    __tablename__ = "dimRace"
+    __table_args__={"schema": "gold"}
     raceId = Column(Integer, primary_key=True)
     year = Column(Integer)
     round = Column(Integer)
@@ -102,6 +57,7 @@ class dimRace(Base):
 
 class dimCircuit(Base):
     __tablename__ = "dimCircuit"
+    __table_args__ = {"schema": "gold"}
 
     circuitId = Column(Integer, primary_key=True)
     circuitRef = Column(String)
@@ -115,7 +71,7 @@ class dimCircuit(Base):
 
 class dimDriverStandings(Base):
     __tablename__ = "dimDriverStandings"
-
+    __table_args__ = {"schema": "gold"}
     driverStandingsId = Column(Integer, primary_key=True)
     driverstandings_positionText = Column(String)
     driverstandings_position = Column(Integer)
@@ -124,6 +80,7 @@ class dimDriverStandings(Base):
 
 class dimConstructorStandings(Base):
     __tablename__ = "dimConstructorStandings"
+    __table_args__ = {"schema": "gold"}
 
     constructorStandingsId = Column(Integer, primary_key=True)
     constructorstandings_positionText = Column(String)
@@ -133,6 +90,7 @@ class dimConstructorStandings(Base):
 
 class dimDate(Base):
     __tablename__ = "dimDate"
+    __table_args__ = {"schema": "gold"}
 
     dateId = Column(Integer, primary_key=True)
     date = Column(Date)
@@ -142,6 +100,7 @@ class dimDate(Base):
 
 class factResults(Base):
     __tablename__ = "factResults"
+    __table_args__ = {"schema": "gold"}
 
     id = Column(Integer, primary_key=True)
     resultId = Column(Integer)
@@ -169,6 +128,7 @@ class factResults(Base):
 
 class factLap(Base):
     __tablename__ = "factLap"
+    __table_args__ = {"schema": "gold"}
 
     raceId = Column(Integer, primary_key=True)
     driverId = Column(Integer, primary_key=True)
@@ -179,6 +139,7 @@ class factLap(Base):
 
 class factPitstop(Base):
     __tablename__ = "factPitstop"
+    __table_args__ = {"schema": "gold"}
 
     raceId = Column(Integer, primary_key=True)
     driverId = Column(Integer, primary_key=True)
@@ -186,4 +147,3 @@ class factPitstop(Base):
     duration = Column(Float)
     pitstops_milliseconds = Column(Integer)
     pitstops_time = Column(String)
->>>>>>> dev_new
