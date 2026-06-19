@@ -4,6 +4,8 @@ import sqlalchemy as db
 import os
 
 def load_bronze(engine, bronza_csv):
+    with engine.begin() as conn:
+        conn.execute(db.text("CREATE SCHEMA IF NOT EXISTS bronze"))
     Base.metadata.create_all(engine)
     df = pd.read_csv(bronza_csv, low_memory=False)
     with engine.begin() as conn:

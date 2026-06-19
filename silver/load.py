@@ -3,6 +3,8 @@ import pandas as pd
 import sqlalchemy as db
 
 def load_silver(engine):
+    with engine.begin() as conn:
+        conn.execute(db.text("CREATE SCHEMA IF NOT EXISTS silver"))
     Base.metadata.create_all(engine)
     
     bronze_df = pd.read_sql("SELECT * FROM bronze_layer", engine)

@@ -165,6 +165,9 @@ def load_fact_pitstop(engine):
     return df
 
 def load_gold(engine):
+    with engine.begin() as conn:
+        conn.execute(text("CREATE SCHEMA IF NOT EXISTS gold"))
+    Base.metadata.create_all(engine)
     load_dim_race(engine)
     load_dim_date(engine)
     load_dim_status(engine)
